@@ -113,7 +113,7 @@ public class LinuxShellCallback extends Callback2 {
         String prefix = "sshd:";
         int length = hostsArr.length;
         for (int i = 0; i < length; i++) {
-            String host = hostsArr[i];
+            String host = hostsArr[i].trim();
             hostsArr[i] = prefix + host;
         }
         return SystemHWUtil.formatArr(hostsArr, SystemHWUtil.CRLF);
