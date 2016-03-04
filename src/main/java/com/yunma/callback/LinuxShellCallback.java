@@ -78,6 +78,7 @@ public class LinuxShellCallback extends Callback2 {
     public static final String shell_type_start_tomcat_cron = "定时启动tomcat";
     public static final String shell_type_modify_tomcat_port = "修改tomcat端口号";
     public static final String shell_type_del_xml_comment = "删除<!-- --> 注释";
+    public static final String shell_type_hosts_deny = "生成hosts.deny";
 
     public static final String divide_tab = "\t\t";
     private Color bgColor;
@@ -97,6 +98,26 @@ public class LinuxShellCallback extends Callback2 {
         return buffer.toString();
     }
 
+    /***
+     * sshd:201.172.242.<br>
+     * sshd:189.219.166.<br>
+     * sshd:201.175.123.<br>
+     * sshd:201.172.78.<br>
+     * sshd:201.173.37.<br>
+     *
+     * @param hosts
+     * @return
+     */
+    public static String generateHostsDeny(String hosts) {
+        String[] hostsArr = hosts.split("[\\s]+");
+        String prefix = "sshd:";
+        int length = hostsArr.length;
+        for (int i = 0; i < length; i++) {
+            String host = hostsArr[i];
+            hostsArr[i] = prefix + host;
+        }
+        return SystemHWUtil.formatArr(hostsArr, SystemHWUtil.CRLF);
+    }
     public static String modifyTomcatPort(String cmd) {
         String[] port_tomcatHome = cmd.split("[\\s]");
         if (port_tomcatHome.length < 2) {
@@ -236,6 +257,8 @@ public class LinuxShellCallback extends Callback2 {
             return startTomcatCron(input);
         } else if (encoding.equals(shell_type_modify_tomcat_port)) {
             return modifyTomcatPort(input);
+        } else if (encoding.equals(shell_type_hosts_deny)) {
+            return generateHostsDeny(input);
         }
         return null;
     }
@@ -280,6 +303,7 @@ public class LinuxShellCallback extends Callback2 {
         encodingComboBox.addItem(shell_type_tail_head);
         encodingComboBox.addItem(shell_type_start_tomcat_cron);
         encodingComboBox.addItem(shell_type_modify_tomcat_port);
+        encodingComboBox.addItem(shell_type_hosts_deny);
         return encodingComboBox;
     }
 
