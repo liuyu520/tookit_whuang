@@ -2,8 +2,8 @@ package com.yunma.callback;
 
 import com.io.hw.awt.color.CustomColor;
 import com.string.widget.util.ValueWidget;
-import com.yunma.callback.impl.Callback2;
-import com.yunma.panel.UnicodePanel;
+import com.swing.dialog.UnicodePanel;
+import com.swing.dialog.callback.Callback2;
 
 import javax.swing.*;
 import java.awt.*;

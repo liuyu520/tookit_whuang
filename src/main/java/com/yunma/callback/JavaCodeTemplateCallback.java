@@ -4,9 +4,9 @@ import com.common.util.SystemHWUtil;
 import com.io.hw.awt.color.CustomColor;
 import com.string.widget.util.RandomUtils;
 import com.string.widget.util.ValueWidget;
+import com.swing.dialog.UnicodePanel;
+import com.swing.dialog.callback.Callback2;
 import com.time.util.TimeHWUtil;
-import com.yunma.callback.impl.Callback2;
-import com.yunma.panel.UnicodePanel;
 import org.junit.Test;
 
 import javax.swing.*;
@@ -63,6 +63,10 @@ public class JavaCodeTemplateCallback extends Callback2 {
             "%s.setBorder(resultTitle%s);";
     public static final String modify_log = "//added by huangweii @%s" + SystemHWUtil.CRLF + "//modified by huangweii @%s";
     public static final String java_code_type_modify_log = "修改记录";
+    public static final String java_code_type_IDEA_config="IDEA class配置";
+    public static final String IDEA_webapp="%ssrc\\main\\webapp";
+    public static final String IDEA_webapp_classes=IDEA_webapp+"\\WEB-INF\\classes";
+    public static final String IDEA_classes="%starget\\classes";
     public static final String divide_tab = "\t\t";
     private Color bgColor;
     private UnicodePanel unicodePanel;
@@ -73,9 +77,22 @@ public class JavaCodeTemplateCallback extends Callback2 {
     }
 
     public static String doubleShift(String cmd) {
-        StringBuffer buffer = new StringBuffer();
         String result = String.format(double_shift, cmd);
         return result;
+    }
+    public static String IDEAConfig(String projectPath) {
+    	if(ValueWidget.isNullOrEmpty(projectPath)){
+    		return null;
+    	}
+    	if(!projectPath.endsWith("\\")){
+    		projectPath=projectPath+"\\";
+    	}
+        StringBuffer buffer = new StringBuffer();
+        String result = String.format(IDEA_webapp, projectPath);
+        buffer.append("webapp路径:" + divide_tab + result).append(SystemHWUtil.CRLF);
+        buffer.append("classes路径:" + divide_tab + String.format(IDEA_webapp_classes, projectPath)).append(SystemHWUtil.CRLF);
+        buffer.append("classes路径:" + divide_tab + String.format(IDEA_classes, projectPath));
+        return buffer.toString();
     }
 
     public static String swingBorder(String scroll) {
@@ -110,6 +127,8 @@ public class JavaCodeTemplateCallback extends Callback2 {
             return swingBorder(input);
         } else if (encoding.equals(java_code_type_modify_log)) {
             return modifyLog();
+        }else if (encoding.equals(java_code_type_IDEA_config)) {
+            return IDEAConfig(input);
         }
         return null;
     }
@@ -158,6 +177,7 @@ public class JavaCodeTemplateCallback extends Callback2 {
         encodingComboBox.addItem(java_code_type_return_json);
         encodingComboBox.addItem(java_code_type_swing_Border);
         encodingComboBox.addItem(java_code_type_modify_log);
+        encodingComboBox.addItem(java_code_type_IDEA_config);
         return encodingComboBox;
     }
 

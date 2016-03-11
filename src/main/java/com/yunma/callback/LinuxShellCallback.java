@@ -3,9 +3,9 @@ package com.yunma.callback;
 import com.common.util.SystemHWUtil;
 import com.io.hw.awt.color.CustomColor;
 import com.string.widget.util.ValueWidget;
+import com.swing.dialog.UnicodePanel;
+import com.swing.dialog.callback.Callback2;
 import com.swing.dialog.toast.ToastMessage;
-import com.yunma.callback.impl.Callback2;
-import com.yunma.panel.UnicodePanel;
 import org.junit.Test;
 
 import javax.swing.*;
@@ -50,6 +50,7 @@ public class LinuxShellCallback extends Callback2 {
     public static final String search_str_grep = "grep -i -r -n -m 300 \"%s\" ./* --color=auto";
     public static final String find_pid_by_port = "netstat -anp |grep \":%s[ ]\\+\"|awk -F\" \"   {'print $6\"\\t\"$7'}";
     public static final String find_pid_by_port_onlyPid = find_pid_by_port + "|cut -d\"/\" -f1|sed 's/^.*[[:space:]]\\+\\([[:digit:]]\\+\\)/\\1/'";
+    public static final String find_pid_by_port_killPid = find_pid_by_port_onlyPid + "|xargs -i kill -9 {}";
     public static final String start_tomcat_cron = "#!/bin/sh" + SystemHWUtil.CRLF +
             "$grep_result" + SystemHWUtil.CRLF +
             "grep_result=`ps -ef |grep tomcat|grep \"%s\"|grep -v \"grep\"|awk '{print $2}'`" + SystemHWUtil.CRLF +
@@ -90,6 +91,7 @@ public class LinuxShellCallback extends Callback2 {
     }
 
     public static String killPid(String cmd) {
+        cmd = cmd.trim();
         StringBuffer buffer = new StringBuffer();
         String result = String.format(find_pid_shell, cmd);
         buffer.append("查询pid:" + divide_tab + result).append(SystemHWUtil.CRLF);
@@ -169,7 +171,8 @@ public class LinuxShellCallback extends Callback2 {
         StringBuffer buffer = new StringBuffer();
         String result = String.format(find_pid_by_port, cmd, cmd);
         buffer.append("通过端口找进程:" + divide_tab + result).append(SystemHWUtil.CRLF);
-        buffer.append("只显示进程ID:\t\t" + String.format(find_pid_by_port_onlyPid, cmd));
+        buffer.append("只显示进程ID:\t\t" + String.format(find_pid_by_port_onlyPid, cmd)).append(SystemHWUtil.CRLF);
+        buffer.append("杀死进程:\t\t" + String.format(find_pid_by_port_killPid, cmd));
         return buffer.toString();
     }
 

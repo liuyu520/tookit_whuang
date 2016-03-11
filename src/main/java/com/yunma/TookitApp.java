@@ -7,11 +7,11 @@ import com.swing.component.ComponentUtil;
 import com.swing.component.QRCodePanel;
 import com.swing.dialog.DialogUtil;
 import com.swing.dialog.GenericFrame;
+import com.swing.dialog.UnicodePanel;
+import com.swing.dialog.callback.Callback2;
 import com.swing.event.EventHWUtil;
 import com.swing.menu.MenuUtil2;
 import com.yunma.callback.*;
-import com.yunma.callback.impl.Callback2;
-import com.yunma.panel.UnicodePanel;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
 import javax.swing.*;

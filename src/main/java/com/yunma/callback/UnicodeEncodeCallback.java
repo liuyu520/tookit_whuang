@@ -3,8 +3,8 @@ package com.yunma.callback;
 import com.common.util.SystemHWUtil;
 import com.io.hw.awt.color.CustomColor;
 import com.kunlunsoft.unicode2chinese.Conversion;
-import com.yunma.callback.impl.Callback2;
-import com.yunma.panel.UnicodePanel;
+import com.swing.dialog.UnicodePanel;
+import com.swing.dialog.callback.Callback2;
 
 import java.awt.*;
 
