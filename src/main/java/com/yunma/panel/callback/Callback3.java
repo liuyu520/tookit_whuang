@@ -1,6 +1,7 @@
 package com.yunma.panel.callback;
 
 import com.common.util.SystemHWUtil;
+import com.swing.component.AssistPopupTextArea;
 import com.swing.component.AssistPopupTextField;
 
 import javax.swing.*;
@@ -26,6 +27,7 @@ public abstract class Callback3 {
      * 第四个文本框
      */
     protected AssistPopupTextField textField4;
+    protected AssistPopupTextArea resultTextArea;
 
     public abstract JButton getBtn1();
 
@@ -72,10 +74,12 @@ public abstract class Callback3 {
     public void init(AssistPopupTextField textField1,
                      AssistPopupTextField textField2,
                      AssistPopupTextField textField3,
-                     AssistPopupTextField textField4) {
+                     AssistPopupTextField textField4,
+                     AssistPopupTextArea resultTextArea) {
         this.textField1 = textField1;
         this.textField2 = textField2;
         this.textField3 = textField3;
         this.textField4 = textField4;
+        this.resultTextArea = resultTextArea;
     }
 }
