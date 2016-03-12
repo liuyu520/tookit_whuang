@@ -12,6 +12,9 @@ import com.swing.dialog.callback.Callback2;
 import com.swing.event.EventHWUtil;
 import com.swing.menu.MenuUtil2;
 import com.yunma.callback.*;
+import com.yunma.panel.ScpGenericPane;
+import com.yunma.panel.callback.Callback3;
+import com.yunma.panel.callback.impl.ScpCallback;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
 import javax.swing.*;
@@ -36,6 +39,7 @@ public class TookitApp extends GenericFrame {
      * <action,class>
      */
     public static Map<String, Callback2> callbackMap = new HashMap<String, Callback2>();
+    public static Map<String, Callback3> callback3Map = new HashMap<String, Callback3>();
 
     static {
         callbackMap.put("unicode_de", new UnicodeDecodeCallback());//解码,结果是中文
@@ -51,6 +55,8 @@ public class TookitApp extends GenericFrame {
         callbackMap.put("linux_killpid", new LinuxShellCallback());//linux 杀死进程
         callbackMap.put("java_code", new JavaCodeTemplateCallback());//java code
         callbackMap.put("javascript_code", new JavaScriptCodeTemplateCallback());//javascript code
+
+        callback3Map.put("linux_scp", new ScpCallback());//linux_scp
     }
 
     private JPanel contentPane;
@@ -296,6 +302,7 @@ public class TookitApp extends GenericFrame {
         tabbedPane.addTab("Javascript code template", null, new UnicodePanel("javascript_code", callbackMap, screenHeight), null);
         QRCodePanel qrCodePanel = new QRCodePanel(this);
         tabbedPane.addTab("生成二维码", null, qrCodePanel, null);
+        tabbedPane.addTab("Linux scp", null, new ScpGenericPane("Linux scp", new ScpCallback()), null);
 
         tabbedPane.addChangeListener(new ChangeListener() {
             @Override
