@@ -1,5 +1,6 @@
 package com.yunma.panel.callback.impl;
 
+import com.common.util.SystemHWUtil;
 import com.swing.component.AssistPopupTextArea;
 import com.swing.component.AssistPopupTextField;
 import com.swing.dialog.DialogUtil;
@@ -21,7 +22,14 @@ public class ScpCallback extends Callback3 {
      * 从本地拷贝到远程
      */
     public static final String commond_scp2remote = "scp -r  %s root@%s:%s -P22";
-
+    /***
+     * 从远程拷贝到本地
+     */
+    public static final String commond_scp2loc2 = "scp -r -P22  root@%s:%s %s";
+    /***
+     * 从本地拷贝到远程
+     */
+    public static final String commond_scp2remote2 = "scp -r -P22  %s root@%s:%s";
     @Override
     public JButton getBtn1() {
         JButton generateButton = new JButton("从本地复制到远程");
@@ -33,6 +41,7 @@ public class ScpCallback extends Callback3 {
         generateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                resultTextArea.setText(SystemHWUtil.EMPTY);
                 if (!DialogUtil.verifyTFEmpty(textField1, getLabel1())) {
                     return;
                 }
@@ -42,13 +51,15 @@ public class ScpCallback extends Callback3 {
                 String remoteIp = textField1.getText2();
                 String remotePath = textField2.getText2();
                 String localPath = textField3.getText2();
-                String result = null;
+                StringBuffer result = new StringBuffer();
                 if (is2Remote) {
-                    result = String.format(commond_scp2remote, localPath, remoteIp, remotePath);
+                    result.append(String.format(commond_scp2remote, localPath, remoteIp, remotePath)).append(SystemHWUtil.CRLF);
+                    result.append(String.format(commond_scp2remote2, localPath, remoteIp, remotePath));
                 } else {
-                    result = String.format(commond_scp2loc, remoteIp, remotePath, localPath);
+                    result.append(String.format(commond_scp2loc, remoteIp, remotePath, localPath)).append(SystemHWUtil.CRLF);
+                    result.append(String.format(commond_scp2loc2, remoteIp, remotePath, localPath));
                 }
-                resultTextArea.setText(result);
+                resultTextArea.setText(result.toString());
             }
         });
     }

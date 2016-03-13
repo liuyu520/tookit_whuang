@@ -2,12 +2,14 @@ package com.yunma.panel;
 
 import com.swing.component.AssistPopupTextArea;
 import com.swing.component.AssistPopupTextField;
+import com.swing.component.ComponentUtil;
 import com.swing.dialog.GenericPanel;
 import com.yunma.panel.callback.Callback3;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.Map;
 
 public class ScpGenericPane extends GenericPanel {
 
@@ -20,7 +22,7 @@ public class ScpGenericPane extends GenericPanel {
     private JPanel panel;
     private JButton generateButton;
     private JScrollPane scrollPane;
-    private AssistPopupTextArea textArea;
+    private AssistPopupTextArea resultTextArea;
     private JButton button;
     private JCheckBox checkBox;
 
@@ -45,8 +47,8 @@ public class ScpGenericPane extends GenericPanel {
     /**
      * Create the frame.
      */
-    public ScpGenericPane(final String action, final Callback3 callback3) {
-        this.callback3 = callback3;
+    public ScpGenericPane(final String action, final Map<String, Callback3> callback3Map) {
+        this.callback3 = callback3Map.get(action);
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 450, 300);
         contentPane = this;
@@ -151,7 +153,13 @@ public class ScpGenericPane extends GenericPanel {
         panel.add(generateButton);
 
         button = callback3.getBtn2();
-        panel.add(button);
+        if (null != button) {
+            panel.add(button);
+        }
+        resultTextArea = new AssistPopupTextArea();
+        JButton copyBtn = ComponentUtil.getCopyBtn(resultTextArea, "复制结果(C)");
+        copyBtn.setMnemonic('C');
+        panel.add(copyBtn);
 
         scrollPane = new JScrollPane();
         GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -161,12 +169,12 @@ public class ScpGenericPane extends GenericPanel {
         gbc_scrollPane.gridy = 5;
         contentPane.add(scrollPane, gbc_scrollPane);
 
-        textArea = new AssistPopupTextArea();
-        scrollPane.setViewportView(textArea);
+
+        scrollPane.setViewportView(resultTextArea);
         end();
     }
 
     private void end() {
-        callback3.init(textField1, textField2, textField3, textField4, textArea);
+        callback3.init(textField1, textField2, textField3, textField4, resultTextArea);
     }
 }
