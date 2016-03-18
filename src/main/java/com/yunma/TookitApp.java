@@ -14,6 +14,7 @@ import com.swing.menu.MenuUtil2;
 import com.yunma.callback.*;
 import com.yunma.panel.ScpGenericPane;
 import com.yunma.panel.callback.Callback3;
+import com.yunma.panel.callback.impl.FindCallback;
 import com.yunma.panel.callback.impl.NginxCallback;
 import com.yunma.panel.callback.impl.ScpCallback;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -59,6 +60,7 @@ public class TookitApp extends GenericFrame {
 
         callback3Map.put("linux_scp", new ScpCallback());//linux_scp
         callback3Map.put("linux_nginx", new NginxCallback());//生成Nginx
+        callback3Map.put("linux_find", new FindCallback());//linux find
     }
 
     private JPanel contentPane;
@@ -306,6 +308,7 @@ public class TookitApp extends GenericFrame {
         tabbedPane.addTab("生成二维码", null, qrCodePanel, null);
         tabbedPane.addTab("Linux scp", null, new ScpGenericPane("linux_scp", callback3Map), null);
         tabbedPane.addTab("Linux 生成nginx脚本", null, new ScpGenericPane("linux_nginx", callback3Map), null);
+        tabbedPane.addTab("Linux find命令", null, new ScpGenericPane("linux_find", callback3Map), null);
 
         tabbedPane.addChangeListener(new ChangeListener() {
             @Override

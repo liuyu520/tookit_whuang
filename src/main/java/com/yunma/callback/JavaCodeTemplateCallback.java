@@ -3,6 +3,7 @@ package com.yunma.callback;
 import com.common.util.SystemHWUtil;
 import com.io.hw.awt.color.CustomColor;
 import com.string.widget.util.RandomUtils;
+import com.string.widget.util.RegexUtil;
 import com.string.widget.util.ValueWidget;
 import com.swing.dialog.UnicodePanel;
 import com.swing.dialog.callback.Callback2;
@@ -64,6 +65,7 @@ public class JavaCodeTemplateCallback extends Callback2 {
     public static final String modify_log = "//added by huangweii @%s" + SystemHWUtil.CRLF + "//modified by huangweii @%s";
     public static final String java_code_type_modify_log = "修改记录";
     public static final String java_code_type_IDEA_config="IDEA class配置";
+    public static final String java_code_type_Hump_marking = "驼峰标识";
     public static final String IDEA_webapp="%ssrc\\main\\webapp";
     public static final String IDEA_webapp_classes=IDEA_webapp+"\\WEB-INF\\classes";
     public static final String IDEA_classes="%starget\\classes";
@@ -111,26 +113,12 @@ public class JavaCodeTemplateCallback extends Callback2 {
         return return_json;
     }
 
-    @Override
-    public String callback(String input, Object encoding) {
-        if (ValueWidget.isNullOrEmpty(input)) {
-            /*ToastMessage.toast("请输入内容", 1000,Color.RED);
-			getUnicodePanel().getInputTextArea().requestFocus();
-			return null;*/
-            input = UnicodePanel.please_input;
+    public static String humpMarking(String input) {
+        if (input.contains("_")) {
+            return RegexUtil.humpMarking(input);
+        } else {
+            return "暂未实现";
         }
-        if (encoding.equals(java_code_type_double_shift)) {
-            return doubleShift(input);
-        } else if (encoding.equals(java_code_type_return_json)) {
-            return return_json();
-        } else if (encoding.equals(java_code_type_swing_Border)) {
-            return swingBorder(input);
-        } else if (encoding.equals(java_code_type_modify_log)) {
-            return modifyLog();
-        }else if (encoding.equals(java_code_type_IDEA_config)) {
-            return IDEAConfig(input);
-        }
-        return null;
     }
 
 	/*public static String find(String cmd){
@@ -142,6 +130,30 @@ public class JavaCodeTemplateCallback extends Callback2 {
 		buffer.append("删除搜索到的文件:"+divide_tab+String.format(find_file_and_delete,cmd,cmd));
 		return buffer.toString();
 	}*/
+
+    @Override
+    public String callback(String input, Object encoding) {
+        if (ValueWidget.isNullOrEmpty(input)) {
+            /*ToastMessage.toast("请输入内容", 1000,Color.RED);
+            getUnicodePanel().getInputTextArea().requestFocus();
+			return null;*/
+            input = UnicodePanel.please_input;
+        }
+        if (encoding.equals(java_code_type_double_shift)) {
+            return doubleShift(input);
+        } else if (encoding.equals(java_code_type_return_json)) {
+            return return_json();
+        } else if (encoding.equals(java_code_type_swing_Border)) {
+            return swingBorder(input);
+        } else if (encoding.equals(java_code_type_modify_log)) {
+            return modifyLog();
+        } else if (encoding.equals(java_code_type_IDEA_config)) {
+            return IDEAConfig(input);
+        } else if (encoding.equals(java_code_type_Hump_marking)) {
+            return humpMarking(input);
+        }
+        return null;
+    }
 
     @Test
     public void test_pid() {
@@ -178,6 +190,7 @@ public class JavaCodeTemplateCallback extends Callback2 {
         encodingComboBox.addItem(java_code_type_swing_Border);
         encodingComboBox.addItem(java_code_type_modify_log);
         encodingComboBox.addItem(java_code_type_IDEA_config);
+        encodingComboBox.addItem(java_code_type_Hump_marking);
         return encodingComboBox;
     }
 
