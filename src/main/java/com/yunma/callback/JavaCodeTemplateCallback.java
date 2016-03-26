@@ -67,7 +67,9 @@ public class JavaCodeTemplateCallback extends Callback2 {
     public static final String java_code_type_IDEA_config="IDEA class配置";
     public static final String java_code_type_Hump_marking = "驼峰标识";
     public static final String IDEA_webapp="%ssrc\\main\\webapp";
+    public static final String IDEA_webapp_linux = "%ssrc/main/webapp";
     public static final String IDEA_webapp_classes=IDEA_webapp+"\\WEB-INF\\classes";
+    public static final String IDEA_webapp_classes_linux = IDEA_webapp_linux + "/WEB-INF/classes";
     public static final String IDEA_classes="%starget\\classes";
     public static final String divide_tab = "\t\t";
     private Color bgColor;
@@ -86,13 +88,21 @@ public class JavaCodeTemplateCallback extends Callback2 {
     	if(ValueWidget.isNullOrEmpty(projectPath)){
     		return null;
     	}
-    	if(!projectPath.endsWith("\\")){
-    		projectPath=projectPath+"\\";
-    	}
+        if (SystemHWUtil.isWindows) {
+            if (!projectPath.endsWith("\\")) {
+                projectPath = projectPath + "\\";
+            }
+        } else {
+            if (!projectPath.endsWith("/")) {
+                projectPath = projectPath + "/";
+            }
+        }
+
         StringBuffer buffer = new StringBuffer();
         String result = String.format(IDEA_webapp, projectPath);
         buffer.append("webapp路径:" + divide_tab + result).append(SystemHWUtil.CRLF);
         buffer.append("classes路径:" + divide_tab + String.format(IDEA_webapp_classes, projectPath)).append(SystemHWUtil.CRLF);
+        buffer.append("Linux classes路径:" + divide_tab + String.format(IDEA_webapp_classes_linux, projectPath)).append(SystemHWUtil.CRLF);
         buffer.append("classes路径:" + divide_tab + String.format(IDEA_classes, projectPath));
         return buffer.toString();
     }
