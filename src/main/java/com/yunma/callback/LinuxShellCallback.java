@@ -39,6 +39,8 @@ public class LinuxShellCallback extends Callback2 {
     public static final String find_file_more = find_file + "|xargs -i cat {}";
     public static final String find_file_grep = find_file_more + "| grep -i -r '<请输入>' | cut -d \" \" -f 1,2,3,9,10,11,12 | sort | uniq";
     public static final String find_file_and_delete = find_file + "|xargs rm -fr";
+
+    public static final String find_file_and_move = find_file + "|xargs -I{} mv {} <移动到的目标位置>";
     public static final String search_str = "find ./  -maxdepth 2 -type f|xargs grep -i -n -r \"%s\" --color=auto";
     public static final String tail_head = "tail -n %s %s |head -n %s";
     public static final String tail_head_grep = tail_head + "|grep -i -r -n \"<要搜索的字符串>\"  --color=auto";
@@ -152,7 +154,8 @@ public class LinuxShellCallback extends Callback2 {
         buffer.append("搜索文件:\t\t" + divide_tab + result).append(SystemHWUtil.CRLF);
         buffer.append("打印搜索到的文件:" + divide_tab + String.format(find_file_more, cmd, cmd)).append(SystemHWUtil.CRLF);
         buffer.append("grep搜索到的文件:" + divide_tab + String.format(find_file_grep, cmd, cmd)).append(SystemHWUtil.CRLF);
-        buffer.append("删除搜索到的文件:" + divide_tab + String.format(find_file_and_delete, cmd, cmd));
+        buffer.append("删除搜索到的文件:" + divide_tab + String.format(find_file_and_delete, cmd, cmd)).append(SystemHWUtil.CRLF);
+        buffer.append("剪切搜索到的文件:" + divide_tab + String.format(find_file_and_move, cmd, cmd));
         return buffer.toString();
     }
 
