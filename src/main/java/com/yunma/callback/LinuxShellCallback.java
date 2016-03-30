@@ -35,10 +35,12 @@ public class LinuxShellCallback extends Callback2 {
     public static final String add_comment = "sed -i 's/^\\([^#].*%s\\)/# \\1/' <文件名>";
     public static final String add_comment2 = "sed -i 's/^\\(%s\\)/# \\1/' <文件名>";
     public static final String del_comment = "sed -i 's/^#[[:space:]]*//' <文件名>";
-    public static final String find_file = "find  ./  -maxdepth 2 -user root -type f -iname \"*%s*\"|grep \"%s\" --color=auto";
+    public static final String find_file = "find  .  -maxdepth 2  -type f -iname \"*%s*\"";
+    public static final String find_file_grepColor = find_file + "|grep \"%s\" --color=auto";
     public static final String find_file_more = find_file + "|xargs -i cat {}";
     public static final String find_file_grep = find_file_more + "| grep -i -r '<请输入>' | cut -d \" \" -f 1,2,3,9,10,11,12 | sort | uniq";
     public static final String find_file_and_delete = find_file + "|xargs rm -fr";
+    public static final String find_file_and_delete4mac = find_file + "|xargs -I{} rm -fr {}";
 
     public static final String find_file_and_move = find_file + "|xargs -I{} mv {} <移动到的目标位置>";
     public static final String search_str = "find ./  -maxdepth 2 -type f|xargs grep -i -n -r \"%s\" --color=auto";
@@ -155,6 +157,7 @@ public class LinuxShellCallback extends Callback2 {
         buffer.append("打印搜索到的文件:" + divide_tab + String.format(find_file_more, cmd, cmd)).append(SystemHWUtil.CRLF);
         buffer.append("grep搜索到的文件:" + divide_tab + String.format(find_file_grep, cmd, cmd)).append(SystemHWUtil.CRLF);
         buffer.append("删除搜索到的文件:" + divide_tab + String.format(find_file_and_delete, cmd, cmd)).append(SystemHWUtil.CRLF);
+        buffer.append("删除搜索到的文件:" + divide_tab + String.format(find_file_and_delete4mac, cmd, cmd)).append(SystemHWUtil.CRLF);
         buffer.append("剪切搜索到的文件:" + divide_tab + String.format(find_file_and_move, cmd, cmd));
         return buffer.toString();
     }
