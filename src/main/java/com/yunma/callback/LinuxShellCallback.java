@@ -53,6 +53,7 @@ public class LinuxShellCallback extends Callback2 {
      */
     public static final String search_str_grep = "grep -i -r -n -m 300 \"%s\" ./* --color=auto";
     public static final String find_pid_by_port = "netstat -anp |grep \":%s[ ]\\+\"|awk -F\" \"   {'print $6\"\\t\"$7'}";
+    public static final String find_pid_by_port_mac = "lsof -i:%s";
     public static final String find_pid_by_port_onlyPid = find_pid_by_port + "|cut -d\"/\" -f1|sed 's/^.*[[:space:]]\\+\\([[:digit:]]\\+\\)/\\1/'";
     public static final String find_pid_by_port_killPid = find_pid_by_port_onlyPid + "|xargs -i kill -9 {}";
     public static final String start_tomcat_cron = "#!/bin/sh" + SystemHWUtil.CRLF +
@@ -178,6 +179,7 @@ public class LinuxShellCallback extends Callback2 {
         String result = String.format(find_pid_by_port, cmd, cmd);
         buffer.append("通过端口找进程:" + divide_tab + result).append(SystemHWUtil.CRLF);
         buffer.append("只显示进程ID:\t\t" + String.format(find_pid_by_port_onlyPid, cmd)).append(SystemHWUtil.CRLF);
+        buffer.append("通过端口找进程mac:\t" + String.format(find_pid_by_port_mac, cmd)).append(SystemHWUtil.CRLF);
         buffer.append("杀死进程:\t\t" + String.format(find_pid_by_port_killPid, cmd));
         return buffer.toString();
     }
