@@ -102,9 +102,9 @@ public class JavaCodeTemplateCallback extends Callback2 {
         String result = String.format(IDEA_webapp, projectPath);
         String resultLinux = String.format(IDEA_webapp_linux, projectPath);
         buffer.append("webapp路径:" + divide_tab + result).append(SystemHWUtil.CRLF);
-        buffer.append("linux webapp路径:" + divide_tab + resultLinux).append(SystemHWUtil.CRLF);
+        buffer.append("linux webapp路径:" + divide_tab + " " + resultLinux).append(SystemHWUtil.CRLF);
         buffer.append("classes路径:" + divide_tab + String.format(IDEA_webapp_classes, projectPath)).append(SystemHWUtil.CRLF);
-        buffer.append("Linux classes路径:" + divide_tab + String.format(IDEA_webapp_classes_linux, projectPath)).append(SystemHWUtil.CRLF);
+        buffer.append("Linux classes路径:" + divide_tab + " " + String.format(IDEA_webapp_classes_linux, projectPath)).append(SystemHWUtil.CRLF);
         buffer.append("classes路径:" + divide_tab + String.format(IDEA_classes, projectPath));
         return buffer.toString();
     }
