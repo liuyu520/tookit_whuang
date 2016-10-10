@@ -39,7 +39,7 @@ public class EncryptDESCallback extends Callback3 {
                 String key = textField1.getText2();
                 String plainText = textField2.getText2();
                 try {
-                    String encrypted = SystemHWUtil.encryptDES(SystemHWUtil.encodeBase64(plainText.getBytes("UTF-8")), key);
+                    String encrypted = SystemHWUtil.encryptDES(plainText, key);
                     resultTextArea.setText(encrypted);
                 } catch (Exception e1) {
                     e1.printStackTrace();
@@ -69,7 +69,7 @@ public class EncryptDESCallback extends Callback3 {
                 String key = textField1.getText2();
                 String encrypted = textField3.getText2();
                 try {
-                    String plainText = new String(SystemHWUtil.decodeBase64(SystemHWUtil.decryptDES(encrypted, key)), SystemHWUtil.CHARSET_UTF);
+                    String plainText = SystemHWUtil.decryptDES(encrypted, key);
                     resultTextArea.setText(plainText);
                 } catch (Exception e1) {
                     e1.printStackTrace();
