@@ -12,6 +12,7 @@ import com.swing.dialog.callback.Callback2;
 import com.swing.event.EventHWUtil;
 import com.swing.menu.MenuUtil2;
 import com.yunma.callback.*;
+import com.yunma.dialog.SearchDialog;
 import com.yunma.panel.ScpGenericPane;
 import com.yunma.panel.callback.Callback3;
 import com.yunma.panel.callback.impl.EncryptDESCallback;
@@ -46,7 +47,7 @@ public class TookitApp extends GenericFrame {
 
     static {
         callbackMap.put("unicode_de", new UnicodeDecodeCallback());//解码,结果是中文
-        callbackMap.put("unicode_en", new UnicodeEncodeCallback());//编码
+        callbackMap.put("unicode_encode", new UnicodeEncodeCallback());//编码
         callbackMap.put("base64_en", new Base64EncodeCallback());//编码
         callbackMap.put("base64_de", new Base64DecodeCallback());//解码
         callbackMap.put("md5", new MD5Callback());//MD5
@@ -290,7 +291,7 @@ public class TookitApp extends GenericFrame {
         scrollPane_3.setViewportView(resultTextArea_1);
 
         tabbedPane.addTab("DES加密", null, new ScpGenericPane("encryptDES", callback3Map), null);
-        tabbedPane.addTab("Unicode编码", null, new UnicodePanel("unicode_en", callbackMap, screenHeight, tabbedPane), null);
+        tabbedPane.addTab("Unicode编码", null, new UnicodePanel("unicode_encode", callbackMap, screenHeight, tabbedPane), null);
 
         tabbedPane.addTab("Unicode解码", null, new UnicodePanel("unicode_de", callbackMap, screenHeight, tabbedPane), null);
 
@@ -406,6 +407,7 @@ public class TookitApp extends GenericFrame {
         // 注册应用程序全局键盘事件, 所有的键盘事件都会被此事件监听器处理.
         toolkit.addAWTEventListener(
                 new java.awt.event.AWTEventListener() {
+                    private long lastTimeMillSencond;
                     //					private long lastTimeMillSencond;
                     public void eventDispatched(AWTEvent event) {
                         if (event.getClass() == KeyEvent.class) {
@@ -456,6 +458,22 @@ public class TookitApp extends GenericFrame {
                                 UnicodePanel unicodePanel = getCurrentRequestPanel();
                                 if (null != unicodePanel) {
                                     unicodePanel.getInputTextArea().requestFocus();
+                                }
+                            }
+                            if (EventHWUtil.isJustShiftDown(kE)) {
+                                if (lastTimeMillSencond == 0) {
+                                    lastTimeMillSencond = System.currentTimeMillis();
+                                } else {
+                                    long currentTime = System.currentTimeMillis();
+                                    if (MenuUtil2.isDoubleClick(currentTime - lastTimeMillSencond)) {
+//                                        System.out.println("双击Shiftwwww");
+
+                                        lastTimeMillSencond = 0;
+                                        SearchDialog searchDialog = new SearchDialog(TookitApp.this, tabbedPane, null);
+                                        searchDialog.setVisible(true);
+                                    } else {
+                                        lastTimeMillSencond = System.currentTimeMillis();
+                                    }
                                 }
                             }
                         }
