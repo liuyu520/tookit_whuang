@@ -112,6 +112,18 @@ public class EncryptDESCallback extends Callback3 {
         this.textField1.placeHolder("8个字符");//key
         this.textField2.placeHolder("请输入明文");
         this.textField3.placeHolder("请输入密文");
+        this.textField2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getBtn1().doClick();
+            }
+        });
+        this.textField3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getBtn2().doClick();
+            }
+        });
     }
 
 }
