@@ -3,6 +3,7 @@ package com.yunma.panel.callback.impl;
 import com.common.util.SystemHWUtil;
 import com.swing.component.AssistPopupTextArea;
 import com.swing.component.AssistPopupTextField;
+import com.swing.dialog.DialogUtil;
 import com.yunma.panel.callback.Callback3;
 
 import javax.swing.*;
@@ -16,6 +17,7 @@ public class EncryptDESCallback extends Callback3 {
     @Override
     public JButton getBtn1() {
         JButton generateButton = new JButton("加密");
+        generateButton.setMnemonic('E');
         addEvent(generateButton);
         return generateButton;
     }
@@ -28,6 +30,12 @@ public class EncryptDESCallback extends Callback3 {
         generateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (!DialogUtil.verifyTFEmpty(textField1, getLabel1())) {
+                    return;
+                }
+                if (!DialogUtil.verifyTFEmpty(textField2, getLabel2())) {
+                    return;
+                }
                 String key = textField1.getText2();
                 String plainText = textField2.getText2();
                 try {
@@ -43,6 +51,7 @@ public class EncryptDESCallback extends Callback3 {
     @Override
     public JButton getBtn2() {
         JButton generateButton = new JButton("解密");
+        generateButton.setMnemonic('D');
         decrypt(generateButton);
         return generateButton;
     }
@@ -51,6 +60,12 @@ public class EncryptDESCallback extends Callback3 {
         generateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (!DialogUtil.verifyTFEmpty(textField1, getLabel1())) {
+                    return;
+                }
+                if (!DialogUtil.verifyTFEmpty(textField3, getLabel3())) {
+                    return;
+                }
                 String key = textField1.getText2();
                 String encrypted = textField3.getText2();
                 try {
