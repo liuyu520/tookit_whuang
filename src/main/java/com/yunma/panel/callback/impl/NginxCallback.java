@@ -67,6 +67,12 @@ public class NginxCallback extends Callback3 {
         super.init(textField1, textField2, textField3, textField4, resultTextArea);
         this.textField1.placeHolder("例如:/api/v1/appstore/getOrderItemDisplayInfo");
         this.textField2.placeHolder("例如:www.yhskyc.com:8083");
+        this.textField2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getBtn1().doClick();
+            }
+        });
     }
 
 }

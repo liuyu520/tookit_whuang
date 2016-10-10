@@ -85,6 +85,7 @@ public class LinuxShellCallback extends Callback2 {
     public static final String shell_type_modify_tomcat_port = "修改tomcat端口号";
     public static final String shell_type_del_xml_comment = "删除<!-- --> 注释";
     public static final String shell_type_hosts_deny = "生成hosts.deny";
+    public static final String shell_type_vim = "vim常用命令";
 
     public static final String divide_tab = "\t\t";
     private Color bgColor;
@@ -160,6 +161,15 @@ public class LinuxShellCallback extends Callback2 {
         buffer.append("删除搜索到的文件:" + divide_tab + String.format(find_file_and_delete, cmd, cmd)).append(SystemHWUtil.CRLF);
         buffer.append("删除搜索到的文件:" + divide_tab + String.format(find_file_and_delete4mac, cmd, cmd)).append(SystemHWUtil.CRLF);
         buffer.append("剪切搜索到的文件:" + divide_tab + String.format(find_file_and_move, cmd, cmd));
+        return buffer.toString();
+    }
+
+    public static String vim() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("替换:\t\t:%s/^foo/ba/g").append(SystemHWUtil.CRLF);
+        buffer.append("给每行加上注释:\t\t:%s/^/#/g").append(SystemHWUtil.CRLF);
+        buffer.append("把每行的注释去掉:\t:%s/^#//g").append(SystemHWUtil.CRLF);
+        buffer.append("给指定行加上注释:\t:2,3s/^/#/g");
         return buffer.toString();
     }
 
@@ -270,6 +280,8 @@ public class LinuxShellCallback extends Callback2 {
             return modifyTomcatPort(input);
         } else if (encoding.equals(shell_type_hosts_deny)) {
             return generateHostsDeny(input);
+        } else if (encoding.equals(shell_type_vim)) {
+            return vim();
         }
         return null;
     }
@@ -315,6 +327,7 @@ public class LinuxShellCallback extends Callback2 {
         encodingComboBox.addItem(shell_type_start_tomcat_cron);
         encodingComboBox.addItem(shell_type_modify_tomcat_port);
         encodingComboBox.addItem(shell_type_hosts_deny);
+        encodingComboBox.addItem(shell_type_vim);
         return encodingComboBox;
     }
 

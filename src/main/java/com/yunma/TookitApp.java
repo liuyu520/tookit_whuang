@@ -288,22 +288,22 @@ public class TookitApp extends GenericFrame {
         scrollPane_3.setViewportView(resultTextArea_1);
 
 
-        tabbedPane.addTab("Unicode编码", null, new UnicodePanel("unicode_en", callbackMap, screenHeight), null);
+        tabbedPane.addTab("Unicode编码", null, new UnicodePanel("unicode_en", callbackMap, screenHeight, tabbedPane), null);
 
-        tabbedPane.addTab("Unicode解码", null, new UnicodePanel("unicode_de", callbackMap, screenHeight), null);
+        tabbedPane.addTab("Unicode解码", null, new UnicodePanel("unicode_de", callbackMap, screenHeight, tabbedPane), null);
 
-        tabbedPane.addTab("Base64编码", null, new UnicodePanel("base64_en", callbackMap, screenHeight), null);
+        tabbedPane.addTab("Base64编码", null, new UnicodePanel("base64_en", callbackMap, screenHeight, tabbedPane), null);
 
-        tabbedPane.addTab("Base64解码", null, new UnicodePanel("base64_de", callbackMap, screenHeight), null);
-        tabbedPane.addTab("生成MD5值", null, new UnicodePanel("md5", callbackMap, screenHeight), "生成MD5");
-        tabbedPane.addTab("code2str 双引号", null, new UnicodePanel("code2str", callbackMap, screenHeight), null);
-        tabbedPane.addTab("code2str 单引号", null, new UnicodePanel("code2strsingle", callbackMap, screenHeight), null);
-        tabbedPane.addTab("Json 格式化", null, new UnicodePanel("json_beautify", callbackMap, screenHeight), null);
-        tabbedPane.addTab("HTML escape", null, new UnicodePanel("html_escape", callbackMap, screenHeight), null);
-        tabbedPane.addTab("HTML unescape", null, new UnicodePanel("html_unescape", callbackMap, screenHeight), null);
-        tabbedPane.addTab("获取Linux shell脚本", null, new UnicodePanel("linux_killpid", callbackMap, screenHeight), null);
-        tabbedPane.addTab("Java code template", null, new UnicodePanel("java_code", callbackMap, screenHeight), null);
-        tabbedPane.addTab("Javascript code template", null, new UnicodePanel("javascript_code", callbackMap, screenHeight), null);
+        tabbedPane.addTab("Base64解码", null, new UnicodePanel("base64_de", callbackMap, screenHeight, tabbedPane), null);
+        tabbedPane.addTab("生成MD5值", null, new UnicodePanel("md5", callbackMap, screenHeight, tabbedPane), "生成MD5");
+        tabbedPane.addTab("code2str 双引号", null, new UnicodePanel("code2str", callbackMap, screenHeight, tabbedPane), null);
+        tabbedPane.addTab("code2str 单引号", null, new UnicodePanel("code2strsingle", callbackMap, screenHeight, tabbedPane), null);
+        tabbedPane.addTab("Json 格式化", null, new UnicodePanel("json_beautify", callbackMap, screenHeight, tabbedPane), null);
+        tabbedPane.addTab("HTML escape", null, new UnicodePanel("html_escape", callbackMap, screenHeight, tabbedPane), null);
+        tabbedPane.addTab("HTML unescape", null, new UnicodePanel("html_unescape", callbackMap, screenHeight, tabbedPane), null);
+        tabbedPane.addTab("获取Linux shell脚本", null, new UnicodePanel("linux_killpid", callbackMap, screenHeight, tabbedPane), null);
+        tabbedPane.addTab("Java code template", null, new UnicodePanel("java_code", callbackMap, screenHeight, tabbedPane), null);
+        tabbedPane.addTab("Javascript code template", null, new UnicodePanel("javascript_code", callbackMap, screenHeight, tabbedPane), null);
         QRCodePanel qrCodePanel = new QRCodePanel(this);
         tabbedPane.addTab("生成二维码", null, qrCodePanel, null);
         tabbedPane.addTab("Linux scp", null, new ScpGenericPane("linux_scp", callback3Map), null);

@@ -82,9 +82,15 @@ public class FindCallback extends Callback3 {
                      AssistPopupTextField textField4, AssistPopupTextArea resultTextArea) {
         super.init(textField1, textField2, textField3, textField4, resultTextArea);
         this.textField1.placeHolder("例如:catalina.out").setText("catalina.out");
-        ;
+
         this.textField2.placeHolder("例如:/home/whuang/software/").setText("/home/whuang/software/tomcat-7.0.53_tv/");
-        ;
+
+        textField2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                getBtn1().doClick();
+            }
+        });
     }
 
 }
