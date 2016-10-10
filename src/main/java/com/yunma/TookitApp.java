@@ -14,6 +14,7 @@ import com.swing.menu.MenuUtil2;
 import com.yunma.callback.*;
 import com.yunma.panel.ScpGenericPane;
 import com.yunma.panel.callback.Callback3;
+import com.yunma.panel.callback.impl.EncryptDESCallback;
 import com.yunma.panel.callback.impl.FindCallback;
 import com.yunma.panel.callback.impl.NginxCallback;
 import com.yunma.panel.callback.impl.ScpCallback;
@@ -61,6 +62,7 @@ public class TookitApp extends GenericFrame {
         callback3Map.put("linux_scp", new ScpCallback());//linux_scp
         callback3Map.put("linux_nginx", new NginxCallback());//生成Nginx
         callback3Map.put("linux_find", new FindCallback());//linux find
+        callback3Map.put("encryptDES", new EncryptDESCallback());//DES
     }
 
     private JPanel contentPane;
@@ -287,7 +289,7 @@ public class TookitApp extends GenericFrame {
 
         scrollPane_3.setViewportView(resultTextArea_1);
 
-
+        tabbedPane.addTab("DES加密", null, new ScpGenericPane("encryptDES", callback3Map), null);
         tabbedPane.addTab("Unicode编码", null, new UnicodePanel("unicode_en", callbackMap, screenHeight, tabbedPane), null);
 
         tabbedPane.addTab("Unicode解码", null, new UnicodePanel("unicode_de", callbackMap, screenHeight, tabbedPane), null);
