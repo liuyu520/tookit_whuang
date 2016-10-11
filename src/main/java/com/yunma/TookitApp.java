@@ -459,8 +459,17 @@ public class TookitApp extends GenericFrame {
                                 if (null != unicodePanel) {
                                     unicodePanel.getInputTextArea().requestFocus();
                                 }
+                            } else if ((kE.getKeyCode() == KeyEvent.VK_P)
+                                    && (((InputEvent) event)
+                                    .isShiftDown()) && ((InputEvent) event)
+                                    .isMetaDown()/*MAC 的command键*/ && kE.getID() == KeyEvent.KEY_PRESSED) {
+                                SearchDialog searchDialog = new SearchDialog(TookitApp.this, tabbedPane, null);
+                                searchDialog.show2();
+                                searchDialog.getTextArea().requestFocus();
+                                searchDialog.validate();
+                                searchDialog.repaint();
                             }
-                            if (EventHWUtil.isJustShiftDown(kE)) {
+                            /*if (EventHWUtil.isJustShiftDown(kE)) {
                                 if (lastTimeMillSencond == 0) {
                                     lastTimeMillSencond = System.currentTimeMillis();
                                 } else {
@@ -469,13 +478,12 @@ public class TookitApp extends GenericFrame {
 //                                        System.out.println("双击Shiftwwww");
 
                                         lastTimeMillSencond = 0;
-                                        SearchDialog searchDialog = new SearchDialog(TookitApp.this, tabbedPane, null);
-                                        searchDialog.setVisible(true);
+
                                     } else {
                                         lastTimeMillSencond = System.currentTimeMillis();
                                     }
                                 }
-                            }
+                            }*/
                         }
                     }
                 }, java.awt.AWTEvent.KEY_EVENT_MASK);

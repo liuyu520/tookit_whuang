@@ -60,9 +60,10 @@ public class SearchDialog extends GenericDialog {
                         } else if (resultSize == 1) {//仅搜索到一条记录
 //                                 searchSuccess(searchResult.iterator().next());
                             tabbedPane.setSelectedIndex(searchResult.iterator().next());
+                            SearchDialog.this.close2();
                         } else {
                             MenuUtil2.searchResultList(frame, tabbedPane, searchResult, SearchDialog.this, 100);
-                            SearchDialog.this.dispose();
+                            SearchDialog.this.close2();
                         }
                     }
                 }
@@ -83,11 +84,11 @@ public class SearchDialog extends GenericDialog {
             keyword = WindowUtil.getSysClipboardText();
             if (!ValueWidget.isNullOrEmpty(keyword) && keyword.length() < 20) {//太长的字符串就忽略
                 textArea.setText(keyword);
-                textArea.selectAll();
+//                textArea.selectAll();
             }
         } else {
             textArea.setText(keyword);
-            textArea.selectAll();
+//            textArea.selectAll();
         }
 
     }
@@ -105,4 +106,11 @@ public class SearchDialog extends GenericDialog {
         }
     }
 
+    public AssistPopupTextField getTextArea() {
+        return textArea;
+    }
+
+    public void setTextArea(AssistPopupTextField textArea) {
+        this.textArea = textArea;
+    }
 }
