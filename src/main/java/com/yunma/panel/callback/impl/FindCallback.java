@@ -18,7 +18,14 @@ import java.awt.event.ActionListener;
 public class FindCallback extends Callback3 {
     public static final String find_file = "find  %s  -maxdepth 2 -type f -iname \"*%s*\"|grep \"%s\" --color=auto";
     public static final String find_file_more = find_file + "|xargs -i cat {}";
-    public static final String search_str = "find ./ -maxdepth 3 -type f -iname \"*%s*\"|xargs grep -i -n -r \"%s\" --color=auto";
+    /***
+     * 还是不要通配符*
+     */
+    public static final String search_str = "find ./ -maxdepth 3 -type f -iname \"%s\"| grep -i -n  \"%s\" --color=auto";
+    /***
+     * 还是不要通配符*
+     */
+    public static final String search_directory = "find ./ -maxdepth 3 -type d -iname \"%s\"| grep -i -n  \"%s\" --color=auto";
 
     public static String find(String filename, String path) {
         if (ValueWidget.isNullOrEmpty(path)) {
@@ -28,7 +35,8 @@ public class FindCallback extends Callback3 {
         String result = String.format(find_file, path, filename, filename);
         buffer.append("搜索文件:\t" + LinuxShellCallback.divide_tab + result).append(SystemHWUtil.CRLF);
         buffer.append("打印搜索到的文件:" + LinuxShellCallback.divide_tab + String.format(find_file_more, path, filename, filename)).append(SystemHWUtil.CRLF);
-        buffer.append("搜索文件:\t" + LinuxShellCallback.divide_tab + String.format(search_str, filename, filename));
+        buffer.append("搜索文件:\t" + LinuxShellCallback.divide_tab + String.format(search_str, filename, filename)).append(SystemHWUtil.CRLF);
+        buffer.append("搜索目录:\t" + LinuxShellCallback.divide_tab + String.format(search_directory, filename, filename));
         return buffer.toString();
     }
 

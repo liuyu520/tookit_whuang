@@ -164,9 +164,20 @@ public class LinuxShellCallback extends Callback2 {
         return buffer.toString();
     }
 
-    public static String vim() {
+    public static String vim(String input) {
+        String[] strs = null;
+        if (!ValueWidget.isNullOrEmpty(input) && !"<请输入内容>".equals(input)) {
+            strs = input.split("[\\s]");
+            for (int i = 0; i < strs.length; i++) {
+                strs[i] = strs[i].replace("/", "\\/");
+            }
+        }
         StringBuffer buffer = new StringBuffer();
         buffer.append("替换:\t\t:%s/^foo/ba/g").append(SystemHWUtil.CRLF);
+        if (!ValueWidget.isNullOrEmpty(strs)) {
+            buffer.append("替换:\t\t:%").append(String.format("s/%s/%s/g", strs)).append(SystemHWUtil.CRLF);
+        }
+
         buffer.append("给每行加上注释:\t\t:%s/^/#/g").append(SystemHWUtil.CRLF);
         buffer.append("把每行的注释去掉:\t:%s/^#//g").append(SystemHWUtil.CRLF);
         buffer.append("给指定行加上注释:\t:2,3s/^/#/g");
@@ -281,7 +292,7 @@ public class LinuxShellCallback extends Callback2 {
         } else if (encoding.equals(shell_type_hosts_deny)) {
             return generateHostsDeny(input);
         } else if (encoding.equals(shell_type_vim)) {
-            return vim();
+            return vim(input);
         }
         return null;
     }

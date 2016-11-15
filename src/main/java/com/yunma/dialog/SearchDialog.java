@@ -51,7 +51,7 @@ public class SearchDialog extends GenericDialog {
                     }
                     String keyWord = textArea.getText2();
                     if (!ValueWidget.isNullOrEmpty(keyWord)) {
-                        Set<Integer> searchResult = MenuUtil2.searchAction(keyWord, tabbedPane);
+                        Set<Integer> searchResult = MenuUtil2.searchAction(keyWord, tabbedPane, true/*includeActionName*/);
                         if (searchResult == null) return;
                         //如果只有一个就直接选中
                         int resultSize = searchResult.size();

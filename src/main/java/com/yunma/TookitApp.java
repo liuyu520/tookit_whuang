@@ -307,7 +307,7 @@ public class TookitApp extends GenericFrame {
         tabbedPane.addTab("获取Linux shell脚本", null, new UnicodePanel("linux_killpid", callbackMap, screenHeight, tabbedPane), null);
         tabbedPane.addTab("Java code template", null, new UnicodePanel("java_code", callbackMap, screenHeight, tabbedPane), null);
         tabbedPane.addTab("Javascript code template", null, new UnicodePanel("javascript_code", callbackMap, screenHeight, tabbedPane), null);
-        QRCodePanel qrCodePanel = new QRCodePanel(this);
+        QRCodePanel qrCodePanel = new QRCodePanel(this, null);
         tabbedPane.addTab("生成二维码", null, qrCodePanel, null);
         tabbedPane.addTab("Linux scp", null, new ScpGenericPane("linux_scp", callback3Map), null);
         tabbedPane.addTab("Linux 生成nginx脚本", null, new ScpGenericPane("linux_nginx", callback3Map), null);
@@ -441,8 +441,8 @@ public class TookitApp extends GenericFrame {
                                     unicodePanel.reduce2();
                                 }
                             } else if ((kE.getKeyCode() == KeyEvent.VK_K)
-                                    && (((InputEvent) event)
-                                    .isControlDown()) && kE.getID() == KeyEvent.KEY_PRESSED) {
+                                    && ((EventHWUtil.isControlDown((InputEvent) event))
+                            ) && kE.getID() == KeyEvent.KEY_PRESSED) {
                                 /*if (lastTimeMillSencond == 0) {
 									lastTimeMillSencond = System.currentTimeMillis();
 								} else {
